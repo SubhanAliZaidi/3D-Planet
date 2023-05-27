@@ -1,0 +1,129 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-image: url("./textures/stars.jpg");
+	background-size: cover;
+	position: relative;
+}
+
+:root {
+	--primary-text-color: white;
+	--secondary-text-color: #fff;
+}
+
+#firstsection {
+	height: 100vh;
+	position: relative;
+}
+
+header {
+	top: 0;
+	left: 0;
+	width: 100%;
+	padding: 40px 100px;
+	padding-bottom: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	z-index: 99999;
+}
+
+header > .logo {
+	text-decoration: none;
+	color: var(--primary-text-color);
+	font-size: 2em;
+	text-transform: uppercase;
+	letter-spacing: 4px;
+	font-weight: 700;
+}
+
+header ul {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+header ul li {
+	list-style: none;
+	margin-left: 20px;
+}
+
+header ul li a {
+	text-decoration: none;
+	padding: 6px 15px;
+	color: var(--primary-text-color);
+	border-radius: 20px;
+	font-weight: 600;
+	font-size: 20px;
+}
+
+header ul li a:hover,
+header ul li a.active {
+	background-color: white;
+	color: #2b1055;
+}
+
+.container {
+	width: 100%;
+}
+
+canvas {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+#secondsection canvas {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+
+.title {
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	flex-direction: column;
+	width: 700px;
+	height: 100vh;
+	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+		"Lucida Sans", Arial, sans-serif;
+	color: white;
+	margin-left: 105px;
+}
+
+.title h1 {
+	text-transform: uppercase;
+	font-size: 3rem;
+	margin-bottom: 15px;
+	letter-spacing: 15px;
+}
+
+.title p {
+	text-transform: capitalize;
+	font-size: 1.2rem;
+	text-align: justify;
+}
+
+.title button {
+	padding: 8px 14px;
+	border: none;
+	border-radius: 50vh;
+	font-size: 1.2rem;
+	margin-top: 25px;
+}
+
+.title1 {
+	width: 600px;
+	position: absolute;
+	right: 105;
+}
+
+#secondsection {
+	height: 100vh;
+	position: relative;
+}
