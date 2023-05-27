@@ -16,7 +16,6 @@ body {
 }
 
 #firstsection {
-	height: 100vh;
 	position: relative;
 }
 
@@ -61,39 +60,57 @@ header ul li a {
 	font-size: 20px;
 }
 
+header button{
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  width: 34px;
+  aspect-ratio: 1/1;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+header button .line{
+  width: 30px;
+  height: 4px;
+  border-radius: 5px;
+  background-color: white;
+}
+
+header button:focus,
+header button.active{
+  border: none;
+  outline: none;
+}
+
 header ul li a:hover,
-header ul li a.active {
+header ul li a.active,
+header ul li a:focus {
 	background-color: white;
 	color: #2b1055;
 }
 
-.container {
-	width: 100%;
-}
-
 canvas {
-	position: absolute;
+	position: relative;
 	right: 0;
-	bottom: 0;
-}
-
-#secondsection canvas {
-	position: absolute;
-	left: 0;
 	bottom: 0;
 }
 
 .title {
 	display: flex;
-	align-items: flex-start;
 	justify-content: center;
 	flex-direction: column;
-	width: 700px;
-	height: 100vh;
+  flex-wrap: wrap;
+	max-width: 700px;
+  position: relative;
 	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
 		"Lucida Sans", Arial, sans-serif;
 	color: white;
-	margin-left: 105px;
+	margin: 30px;
+  margin-top: -10px;
 }
 
 .title h1 {
@@ -112,18 +129,36 @@ canvas {
 .title button {
 	padding: 8px 14px;
 	border: none;
+  width: 140px;
 	border-radius: 50vh;
 	font-size: 1.2rem;
 	margin-top: 25px;
 }
 
-.title1 {
-	width: 600px;
-	position: absolute;
-	right: 105;
-}
+@media (max-width:850px){
+  header button{
+    display: flex;
+    z-index: 99;
+  }
+  
+  header ul li{
+    position: fixed;
+    padding: 40px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    backdrop-filter: blur(15px);
+    z-index: 10;
+    top: 0;
+    right: 0;
+    color: black;
+    transform: translateX(110%);
+    transition: transform 500ms ease;
+  }
 
-#secondsection {
-	height: 100vh;
-	position: relative;
+  header {
+    padding: 20px 30px;
+  }
 }
