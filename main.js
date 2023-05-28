@@ -8,8 +8,16 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
-const width = 500;
-const height = 500;
+
+let width, height;
+
+if (window.innerWidth <= 570) {
+  width = 400;
+  height = 400;
+} else {
+  width = 550;
+  height = 550;
+}
 
 // Scene
 const scene = new THREE.Scene();
@@ -33,9 +41,10 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.enablePan = false;
 controls.dampingFactor = true;
 controls.maxDistance = 8;
-controls.minDistance = 4;
-// controls.autoRotate = true;
-// controls.rotateSpeed = 0.2;
+controls.minDistance = 5;
+controls.enableRotate = true;
+controls.autoRotate = true;
+controls.rotateSpeed = 0.004;
 
 // GlobeTexture
 const textureLoader = new THREE.TextureLoader();
@@ -124,17 +133,19 @@ PointLightGenerator(0xffffff, 2, 100, scene, [1, 1, 0])
 const al = new THREE.AmbientLight(0xffffff, 0.01);
 scene.add(al);
 
+
+// Sphere Earth
 const specularMap = textureLoader.load('./textures/specular.jpg')
 const bump = textureLoader.load('./textures/bump.jpg')
 // GlobeSphere
-const sphere = SphereGenerator(1.8, textureLoader.load(earth), specularMap, bump, false, 'default', [0, 0, 0], scene, false);
+const sphere = SphereGenerator(1.9, textureLoader.load(earth), specularMap, bump, false, 'default', [0, 0, 0], scene, false);
 sphere.rotation.y = 2.2;
 sphere.rotation.x = .2;
 sphere.rotation.z = 0.2;
 rotateObjectOnMouseMove(sphere)
 
 // CloudSphere
-const sphere2 = SphereGenerator(1.9, textureLoader.load(cloud), null, null, true, 1.3, [0, 0, 0], scene, false);
+const sphere2 = SphereGenerator(2, textureLoader.load(cloud), null, null, true, 1.3, [0, 0, 0], scene, false);
 
 var tl = gsap.timeline();
 tl.fromTo(
@@ -157,8 +168,8 @@ animate();
 // Windows Resizer
 function onWindowResize() {
   if (window.innerWidth <= 570) {
-    const width1 = 350;
-    const height1 = 350;
+    const width1 = 400;
+    const height1 = 400;
     camera.aspect = width1 / height1;
     camera.updateProjectionMatrix();
     renderer.setSize(width1, height1);
