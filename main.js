@@ -3,6 +3,7 @@ import './style.css'
 import * as THREE from "three";
 import earth from './textures/Color_Map2k.jpg';
 import cloud from './textures/earthcloud.png';
+import {OrbitControls} from "three/examples/jsm/controls/OrbitControls"
 
 // Width Height
 // let element = document.getElementById("headerheight");
@@ -10,8 +11,11 @@ import cloud from './textures/earthcloud.png';
 // let title = document.getElementById('title')
 // title.style.height = `calc(100vh - ${elemheight}px)`;
 
-const width = window.innerWidth-17;
-const height = window.innerHeight-190;
+// const width = window.innerWidth-17;
+// const height = window.innerHeight-190;
+
+const width = 500;
+const height = 500;
 
 // Scene
 const scene = new THREE.Scene();
@@ -30,6 +34,13 @@ renderer.setSize(width, height);
 const firstsection = document.getElementById('firstsection');
 const firstChild = firstsection.firstChild;
 firstsection.insertBefore(renderer.domElement, firstChild);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.dampingFactor = true;
+controls.maxDistance = 8;
+controls.minDistance = 4;
+// controls.autoRotate = true;
+// controls.rotateSpeed = 0.2;
 
 // GlobeTexture
 const textureLoader = new THREE.TextureLoader();
@@ -111,15 +122,20 @@ DirectionalLightGenerator(0xffffff, 2.6, scene, [15, 15, 15]);
 // PointLight
 PointLightGenerator(0xffffff, 2, 100, scene, [1, 1, 0])
 
+// Ambient Light
+const al = new THREE.AmbientLight(0xffffff, 0.06);
+scene.add(al);
+
 // GlobeSphere
 const sphere = SphereGenerator(1.8, textureLoader.load(earth), false, 'default', [0, 0, 0], scene, false);
-rotateObjectOnMouseMove(sphere)
+// rotateObjectOnMouseMove(sphere)
 
 // CloudSphere
 const sphere2 = SphereGenerator(1.9, textureLoader.load(cloud), true, 1.3, [0, 0, 0], scene, false);
 
 // Animation
 function animate() {
+  controls.update()
   requestAnimationFrame(animate);
 
   sphere.rotation.y += 0.002;
@@ -131,10 +147,18 @@ animate();
 
 // Windows Resizer
 function onWindowResize() {
-  const width1 = window.innerWidth-17
-  const height1 = window.innerHeight
-  camera.aspect = width1 / height1;
-  camera.updateProjectionMatrix();
-  renderer.setSize(width1, height1);
+  if (window.innerWidth <= 570) {
+    const width1 = 350;
+    const height1 = 350;
+    camera.aspect = width1 / height1;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width1, height1);
+  } else {
+    const width1 = 550
+    const height1 = 550
+    camera.aspect = width1 / height1;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width1, height1);
+  }
 }
 window.addEventListener('resize', onWindowResize)
