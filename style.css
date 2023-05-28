@@ -5,9 +5,9 @@
 }
 
 body {
+	position: relative;
 	background-image: url("./textures/stars.jpg");
 	background-size: cover;
-	position: relative;
 }
 
 :root {

@@ -36,10 +36,10 @@ const firstChild = firstsection.firstChild;
 firstsection.insertBefore(renderer.domElement, firstChild);
 
 const controls = new OrbitControls(camera, renderer.domElement);
+controls.enablePan = false;
 controls.dampingFactor = true;
 controls.maxDistance = 8;
 controls.minDistance = 4;
-controls.enablePan = false;
 // controls.autoRotate = true;
 // controls.rotateSpeed = 0.2;
 
