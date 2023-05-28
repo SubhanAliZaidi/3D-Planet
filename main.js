@@ -3,16 +3,10 @@ import './style.css'
 import * as THREE from "three";
 import earth from './textures/Color_Map2k.jpg';
 import cloud from './textures/earthcloud.png';
-import {OrbitControls} from "three/examples/jsm/controls/OrbitControls"
-
-// Width Height
-// let element = document.getElementById("headerheight");
-// let elemheight = element.offsetHeight;
-// let title = document.getElementById('title')
-// title.style.height = `calc(100vh - ${elemheight}px)`;
-
-// const width = window.innerWidth-17;
-// const height = window.innerHeight-190;
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 
 const width = 500;
 const height = 500;
@@ -64,10 +58,13 @@ function PointLightGenerator(color, intensity, far, scene, position) {
 }
 
 // SphereGenerator
-function SphereGenerator(radius, map, transparent, opacity, position, scene, wireframe) {
+function SphereGenerator(radius, map, specularMap, bump, transparent, opacity, position, scene, wireframe) {
   const geometry = new THREE.SphereGeometry(radius, 64, 64, 64);
   const material = new THREE.MeshPhongMaterial({
     map: map,
+    specularMap: specularMap,
+    bumpMap: bump,
+    bumpScale: 0.05,
     transparent: transparent,
     opacity: opacity,
     wireframe: wireframe
@@ -118,21 +115,32 @@ function rotateObjectOnMouseMove(obj) {
 };
 
 // DirectionalLight
-DirectionalLightGenerator(0xffffff, 2.6, scene, [15, 15, 15]);
+DirectionalLightGenerator(0xffffff, 2, scene, [15, 15, 15]);
 
 // PointLight
 PointLightGenerator(0xffffff, 2, 100, scene, [1, 1, 0])
 
 // Ambient Light
-const al = new THREE.AmbientLight(0xffffff, 0.06);
+const al = new THREE.AmbientLight(0xffffff, 0.01);
 scene.add(al);
 
+const specularMap = textureLoader.load('./textures/specular.jpg')
+const bump = textureLoader.load('./textures/bump.jpg')
 // GlobeSphere
-const sphere = SphereGenerator(1.8, textureLoader.load(earth), false, 'default', [0, 0, 0], scene, false);
-// rotateObjectOnMouseMove(sphere)
+const sphere = SphereGenerator(1.8, textureLoader.load(earth), specularMap, bump, false, 'default', [0, 0, 0], scene, false);
+sphere.rotation.y = 2.2;
+sphere.rotation.x = .2;
+sphere.rotation.z = 0.2;
+rotateObjectOnMouseMove(sphere)
 
 // CloudSphere
-const sphere2 = SphereGenerator(1.9, textureLoader.load(cloud), true, 1.3, [0, 0, 0], scene, false);
+const sphere2 = SphereGenerator(1.9, textureLoader.load(cloud), null, null, true, 1.3, [0, 0, 0], scene, false);
+
+var tl = gsap.timeline();
+tl.fromTo(
+  [sphere.scale, sphere2.scale], { x: 0, y: 0, z: 0 }, { x: 1, y: 1, z: 1, duration: 1, ease: 'power2.out' }
+
+);
 
 // Animation
 function animate() {
