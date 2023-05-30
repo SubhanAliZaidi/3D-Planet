@@ -3,12 +3,9 @@ import './style.css'
 import * as THREE from "three";
 import earth from './textures/Color_Map2k.jpg';
 import cloud from './textures/earthcloud.png';
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import specular from './textures/specular.jpg';
+import bumpy from './textures/bump.jpg';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Vector3 } from 'three';
-gsap.registerPlugin(ScrollTrigger);
-
 
 let width, height;
 
@@ -38,15 +35,6 @@ const firstsection = document.getElementById('firstsection');
 const firstChild = firstsection.firstChild;
 firstsection.insertBefore(renderer.domElement, firstChild);
 
-// const controls = new OrbitControls(camera, renderer.domElement);
-// controls.enablePan = false;
-// controls.dampingFactor = true;
-// controls.maxDistance = 8;
-// controls.minDistance = 5;
-// controls.enableRotate = true;
-// controls.autoRotate = true;
-// controls.rotateSpeed = 0.004;
-
 // GlobeTexture
 const textureLoader = new THREE.TextureLoader();
 
@@ -68,12 +56,12 @@ function PointLightGenerator(color, intensity, far, scene, position) {
 }
 
 // SphereGenerator
-function SphereGenerator(radius, map, specularMap, bump, transparent, opacity, position, scene, wireframe) {
+function SphereGenerator(radius, map, specularMap, bumpMap, transparent, opacity, position, scene, wireframe) {
   const geometry = new THREE.SphereGeometry(radius, 64, 64, 64);
   const material = new THREE.MeshPhongMaterial({
     map: map,
     specularMap: specularMap,
-    bumpMap: bump,
+    bumpMap: bumpMap,
     bumpScale: 0.05,
     transparent: transparent,
     opacity: opacity,
@@ -125,10 +113,10 @@ function rotateObjectOnMouseMove(obj) {
 };
 
 // DirectionalLight
-DirectionalLightGenerator(0xffffff, 2, scene, [15, 15, 15]);
+const directionalLight = DirectionalLightGenerator(0xffffff, 2, scene, [15, 15, 15]);
 
 // PointLight
-PointLightGenerator(0xffffff, 2, 100, scene, [1, 1, 0])
+const pointLight = PointLightGenerator(0xffffff, 2, 100, scene, [1, 1, 0])
 
 // Ambient Light
 const al = new THREE.AmbientLight(0xffffff, 0.01);
@@ -136,8 +124,8 @@ scene.add(al);
 
 
 // Sphere Earth
-const specularMap = textureLoader.load('./textures/specular.jpg')
-const bump = textureLoader.load('./textures/bump.jpg')
+const specularMap = textureLoader.load(specular)
+const bump = textureLoader.load(bumpy)
 // GlobeSphere
 const sphere = SphereGenerator(1.9, textureLoader.load(earth), specularMap, bump, false, 'default', [0, 0, 0], scene, false);
 sphere.rotation.y = 2.2;
