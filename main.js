@@ -6,6 +6,7 @@ import cloud from './textures/earthcloud.png';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Vector3 } from 'three';
 gsap.registerPlugin(ScrollTrigger);
 
 
@@ -37,14 +38,14 @@ const firstsection = document.getElementById('firstsection');
 const firstChild = firstsection.firstChild;
 firstsection.insertBefore(renderer.domElement, firstChild);
 
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enablePan = false;
-controls.dampingFactor = true;
-controls.maxDistance = 8;
-controls.minDistance = 5;
-controls.enableRotate = true;
-controls.autoRotate = true;
-controls.rotateSpeed = 0.004;
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.enablePan = false;
+// controls.dampingFactor = true;
+// controls.maxDistance = 8;
+// controls.minDistance = 5;
+// controls.enableRotate = true;
+// controls.autoRotate = true;
+// controls.rotateSpeed = 0.004;
 
 // GlobeTexture
 const textureLoader = new THREE.TextureLoader();
@@ -155,11 +156,11 @@ tl.fromTo(
 
 // Animation
 function animate() {
-  controls.update()
+  // controls.update()
   requestAnimationFrame(animate);
 
-  sphere.rotation.y += 0.002;
-  sphere2.rotation.y += 0.005;
+  sphere.rotation.y += 0.004;
+  sphere2.rotation.y += 0.008;
 
   renderer.render(scene, camera);
 };
