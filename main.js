@@ -156,7 +156,6 @@ window.addEventListener('scroll', function () {
 });
 
 
-
 // Animation
 function animate() {
   requestAnimationFrame(animate);
