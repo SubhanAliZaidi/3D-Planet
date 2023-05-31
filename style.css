@@ -196,5 +196,9 @@ canvas {
   header {
     padding: 20px 30px;
   }
+
+  #firstsection{
+    gap: 100vh;
+  }
 }
 

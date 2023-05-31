@@ -142,13 +142,26 @@ tl.fromTo(
 
 );
 
+let lastScrollPosition = 0;
+window.addEventListener('scroll', function () {
+  const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
+  if (currentScrollPosition > lastScrollPosition) {
+    sphere.rotation.y += 0.05;
+  } else if (currentScrollPosition < lastScrollPosition) {
+    sphere.rotation.y += -0.05;
+  }
+
+  lastScrollPosition = currentScrollPosition;
+});
+
+
+
 // Animation
 function animate() {
-  // controls.update()
   requestAnimationFrame(animate);
-
-  sphere.rotation.y += 0.004;
-  sphere2.rotation.y += 0.008;
+  sphere.rotation.y += 0.0015;
+  sphere2.rotation.y += 0.005;
 
   renderer.render(scene, camera);
 };
