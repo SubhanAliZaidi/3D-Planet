@@ -6,6 +6,7 @@ import cloud from './textures/earthcloud.png';
 import specular from './textures/specular.jpg';
 import bumpy from './textures/bump.jpg';
 import gsap from 'gsap';
+import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 
 let width, height;
 
@@ -34,6 +35,12 @@ renderer.setSize(width, height);
 const firstsection = document.getElementById('firstsection');
 const firstChild = firstsection.firstChild;
 firstsection.insertBefore(renderer.domElement, firstChild);
+
+// Controls
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.dampingFactor = true;
+// controls.maxAzimuthAngle = Math.PI / 2;
+// controls.minAzimuthAngle = Math.PI;
 
 // GlobeTexture
 const textureLoader = new THREE.TextureLoader();
@@ -142,6 +149,7 @@ tl.fromTo(
 
 );
 
+// Scroll To Rotate
 let lastScrollPosition = 0;
 window.addEventListener('scroll', function () {
   const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
