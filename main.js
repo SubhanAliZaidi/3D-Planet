@@ -41,8 +41,6 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.dampingFactor = true;
 controls.minDistance = 3;
 controls.maxDistance = 5;
-// controls.maxAzimuthAngle = Math.PI / 2;
-// controls.minAzimuthAngle = Math.PI;
 
 // GlobeTexture
 const textureLoader = new THREE.TextureLoader();
